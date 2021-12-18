@@ -22,8 +22,8 @@ class BookController extends Controller
                     fn($builder) => $builder->where('name', request('name')),
                     fn($builder) => $builder
                 )
-                ->when(request('company'), 
-                    fn($builder) => $builder->where('company', request('company')),
+                ->when(request('country'), 
+                    fn($builder) => $builder->where('country', request('country')),
                     fn($builder) => $builder
                 )
                 ->when(request('publisher'), 
@@ -31,7 +31,7 @@ class BookController extends Controller
                     fn($builder) => $builder
                 )
                 ->when(request('release_date'), 
-                    fn($builder) => $builder->where('release_date', request('release_date')),
+                    fn($builder) => $builder->whereYear('release_date', request('release_date')),
                     fn($builder) => $builder
                 )
                 ->orderBy('id', 'desc')->paginate(20);

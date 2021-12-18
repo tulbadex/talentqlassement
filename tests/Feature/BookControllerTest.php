@@ -35,6 +35,18 @@ class BookControllerTest extends TestCase
     }
 
     /** @test  */
+    public function itSearchesBooksByYearBooks()
+    {
+        $book = Book::factory()->create();
+        Book::factory()->count(20)->create();
+        $year = date('Y', strtotime($book->release_date));
+        
+        $response = $this->get('api/v1/books?release_date='.$year);
+        $response->assertOk();
+        $response->dump();
+    }
+
+    /** @test  */
     public function itCreateABook()
     {
         $response = $this->postJson('api/v1/books', Book::factory()->raw());
